@@ -1,4 +1,4 @@
-# 🎰 **Spin & Pick** Safari Extension
+# 🎰 **Spin & Pick** Safari Extension - In Progress
 
 **Spin & Pick** is a Safari extension that helps you discover books, movies, and other content by picking a random title from a list of articles, books, movies, etc., scanned from popular websites. With a single click, you'll get a fun roulette wheel that lets you spin for your next favorite title! 😎
 
