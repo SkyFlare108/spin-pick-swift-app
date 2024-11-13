@@ -4,17 +4,9 @@
 
 ---
 
-## 🛠️ **Features**:
-- **Scan and Identify**: Scans web pages like Goodreads, Amazon Books, Prime Video, Netflix, and more to identify titles of books, articles, movies, etc. 📚🎬
-- **Pick a Random Title**: When the extension icon is clicked, it displays a roulette wheel with all the collected titles. 🌀
-- **Add/Remove Titles**: You can add or remove titles from the list before spinning the wheel. 📝✂️
-- **Easy Integration**: Works seamlessly with popular websites like Amazon, Netflix, and Goodreads. 🌐
-
----
-
 ## 🔥 **How It Works**:
 
-1. **Scan Titles**: The extension scans the webpage for titles (like books, articles, and movies).
+1. **Scan Titles**: Scans web pages like Goodreads, Amazon Books, Prime Video, Netflix, and more to identify titles of books, articles, movies, etc. 📚🎬
 2. **Display Roulette Wheel**: Clicking on the extension icon opens a roulette wheel with the parsed titles.
 3. **Spin and Pick**: The user can spin the wheel to randomly choose a title, or modify the list by adding or removing titles. 🎯
 4. **Enjoy**: Pick your next book or movie with ease and fun! 📖🍿
