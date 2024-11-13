@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "default_locale": "en",
 
-    "name": "Spin & Pick",
+    "name": "Spin and Pick",
     "description": "Safari extension to scan titles on webpages and select one randomly.",
     "version": "1.0",
     "permissions": [
