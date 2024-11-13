@@ -4,12 +4,11 @@ body {
   text-align: center;
 }
 
+<canvas id="wheel" width="300" height="300"></canvas>
+
 #wheel-container {
   margin: 10px;
-}
-
-#title-list {
-  list-style-type: none;
-  padding: 0;
-  margin-top: 10px;
+  position: relative;
+  width: 300px;
+  height: 300px;
 }

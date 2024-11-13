@@ -1,16 +1,27 @@
-function getTitles() {
-  let titles = [];
-  
-  if (window.location.href.includes("goodreads.com")) {
-    document.querySelectorAll(".bookTitle").forEach((title) => titles.push(title.textContent.trim()));
-  } else if (window.location.href.includes("amazon.com")) {
-    document.querySelectorAll(".s-title-instructions-style").forEach((title) => titles.push(title.textContent.trim()));
-  } else if (window.location.href.includes("netflix.com")) {
-    document.querySelectorAll(".title-card-container").forEach((title) => titles.push(title.textContent.trim()));
+//
+//  content.js
+//  Spin & Pick
+//
+//  Created by Hari Yerramsetti on 8/16/25.
+//
+// Scrape top 5 place names from Google "places" widget
+// Extract top 5 place names from Google "places" widget
+function getPlaces() {
+  // Find all place containers
+  const placeContainers = document.querySelectorAll('.VkpGBb');
+  const places = [];
+  for (const container of placeContainers) {
+    const nameSpan = container.querySelector('.dbg0pd .OSrXXb');
+    if (nameSpan && nameSpan.textContent) {
+      places.push(nameSpan.textContent.trim());
+    }
+    if (places.length === 5) break;
   }
-
-  return titles;
+  return places;
 }
 
-chrome.runtime.sendMessage({ titles: getTitles() });
-
+browser.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.action === "getPlaces") {
+    sendResponse({ places: getPlaces() });
+  }
+});
