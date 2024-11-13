@@ -12,25 +12,6 @@
 
 ---
 
-## 🏗️ **Step-by-Step Setup**:
-
-### 1. **Create a New Safari Extension** 🧑‍💻
-   - Open Xcode and create a new Safari Web Extension project.
-   - Select **Swift** as the programming language.
-   - Create your project structure with `manifest.json`, `content.js`, and other necessary files.
-
-### 2. **Add the Core Files** 📂
-   - **manifest.json**: Defines the extension’s permissions and settings.
-   - **content.js**: Scans the web page for titles like books, movies, or articles.
-   - **popup.html, popup.css, popup.js**: Creates the roulette wheel UI and handles title selection and removal.
-   - **background.js**: Manages interactions between the web page and the popup.
-
-### 3. **Connect and Test** 🧪
-   - Use Safari’s **Developer Mode** to test your extension on websites like Goodreads, Amazon, Netflix, and more.
-   - Enable the extension, and when you click on the icon, you’ll see a roulette wheel with a list of titles ready to spin! 🏆🎡
-
----
-
 ## 🔥 **How It Works**:
 
 1. **Scan Titles**: The extension scans the webpage for titles (like books, articles, and movies).
