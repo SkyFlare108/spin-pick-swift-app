@@ -24,10 +24,16 @@ function drawInstructions(ctx, canvas) {
 function drawWheel(labels, wheelAngle = 0, selectedIdx = null) {
   const canvas = document.getElementById("wheel");
   const ctx = canvas.getContext("2d");
+  const spinBtn = document.getElementById("spin");
+
   if (!labels.length) {
     drawInstructions(ctx, canvas);
+    spinBtn.style.display = "none";
     return;
+  } else {
+    spinBtn.style.display = "block";
   }
+
   const numSlices = labels.length;
   const sliceAngle = (2 * Math.PI) / numSlices;
   const colors = ["#ffcc00", "#ff9900", "#66ccff", "#ff6699", "#99ff99"];
