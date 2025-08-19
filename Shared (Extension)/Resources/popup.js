@@ -1,9 +1,34 @@
+function drawInstructions(ctx, canvas) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.save();
+  ctx.font = '16px Arial, sans-serif';
+  ctx.fillStyle = '#333';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+
+  const instructions = [
+    "Use this extension to help",
+    "you pick a place to go on",
+    "     Google Searches     ",
+  ];
+
+  const x = canvas.width / 2;
+  const startY = canvas.height / 2 - (instructions.length * 18) / 2;
+  for (let i = 0; i < instructions.length; i++) {
+    ctx.fillText(instructions[i], x, startY + i * 18);
+  }
+  ctx.restore();
+}
+
 // Draw the wheel and fixed arrow
 function drawWheel(labels, wheelAngle = 0, selectedIdx = null) {
   const canvas = document.getElementById("wheel");
   const ctx = canvas.getContext("2d");
+  if (!labels.length) {
+    drawInstructions(ctx, canvas);
+    return;
+  }
   const numSlices = labels.length;
-  if (numSlices === 0) return;
   const sliceAngle = (2 * Math.PI) / numSlices;
   const colors = ["#ffcc00", "#ff9900", "#66ccff", "#ff6699", "#99ff99"];
 
@@ -57,25 +82,25 @@ function drawWheel(labels, wheelAngle = 0, selectedIdx = null) {
   }
   ctx.restore();
 
-  // Draw fixed arrow (always pointing up)
-    ctx.save();
-    ctx.translate(150, 150);
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, -110); // Shorter arrow
-    ctx.lineWidth = 6;
-    ctx.strokeStyle = "#000";
-    ctx.stroke();
+  // Draw fixed arrow (shorter)
+  ctx.save();
+  ctx.translate(150, 150);
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(0, -110);
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = "#000";
+  ctx.stroke();
 
-    // Draw arrow head
-    ctx.beginPath();
-    ctx.moveTo(0, -110);
-    ctx.lineTo(-10, -95);
-    ctx.lineTo(10, -95);
-    ctx.closePath();
-    ctx.fillStyle = "#000";
-    ctx.fill();
-    ctx.restore();
+  // Draw arrow head
+  ctx.beginPath();
+  ctx.moveTo(0, -110);
+  ctx.lineTo(-10, -95);
+  ctx.lineTo(10, -95);
+  ctx.closePath();
+  ctx.fillStyle = "#000";
+  ctx.fill();
+  ctx.restore();
 }
 
 let labels = [];
@@ -85,6 +110,8 @@ browser.tabs.query({active: true, currentWindow: true}).then(tabs => {
   browser.tabs.sendMessage(tabs[0].id, {action: "getPlaces"}).then(response => {
     labels = response?.places?.length ? response.places : [];
     drawWheel(labels, currentAngle);
+  }).catch(() => {
+    drawWheel([], 0);
   });
 });
 
