@@ -1,5 +1,5 @@
-// Draw the wheel and rotating arrow
-function drawWheel(labels, arrowAngle = 0, selectedIdx = null) {
+// Draw the wheel and fixed arrow
+function drawWheel(labels, wheelAngle = 0, selectedIdx = null) {
   const canvas = document.getElementById("wheel");
   const ctx = canvas.getContext("2d");
   const numSlices = labels.length;
@@ -9,52 +9,73 @@ function drawWheel(labels, arrowAngle = 0, selectedIdx = null) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw wheel slices
+  // Draw wheel (rotated by wheelAngle)
+  ctx.save();
+  ctx.translate(150, 150);
+  ctx.rotate(wheelAngle * Math.PI / 180);
+
   for (let i = 0; i < numSlices; i++) {
+    // Draw slice
     ctx.beginPath();
-    ctx.moveTo(150, 150);
-    ctx.arc(150, 150, 150, i * sliceAngle, (i + 1) * sliceAngle);
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, 150, i * sliceAngle, (i + 1) * sliceAngle);
     ctx.fillStyle = colors[i % colors.length];
     ctx.fill();
     ctx.stroke();
 
-    // Draw label
-      ctx.save();
-      ctx.translate(150, 150);
-      ctx.rotate(i * sliceAngle + sliceAngle / 2);
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = selectedIdx === i ? "#d00" : "#333";
-      // Adjust font size based on label length
-      const fontSize = labels[i].length > 18 ? 12 : 16;
-      ctx.font = `${fontSize}px Arial`;
-      // Truncate long labels
-      let label = labels[i];
-      if (label.length > 22) label = label.slice(0, 19) + "...";
-      ctx.fillText(label, 100, 0);
-      ctx.restore();
+    // Draw label with word wrapping, stacking lines vertically
+    ctx.save();
+    ctx.rotate(i * sliceAngle + sliceAngle / 2);
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#333";
+    ctx.font = `13px "Comic Sans MS", "Cursive", sans-serif`;
+
+    let label = labels[i];
+    const maxLineLength = 10;
+    const words = label.split(" ");
+    let lines = [];
+    let currentLine = "";
+
+    for (let word of words) {
+      if ((currentLine + " " + word).trim().length <= maxLineLength) {
+        currentLine = (currentLine + " " + word).trim();
+      } else {
+        if (currentLine) lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    if (currentLine) lines.push(currentLine);
+
+    const radius = 110;
+    const lineHeight = 16;
+    const totalHeight = lineHeight * (lines.length - 1);
+    for (let j = 0; j < lines.length; j++) {
+      ctx.fillText(lines[j], radius, -totalHeight / 2 + j * lineHeight);
+    }
+    ctx.restore();
   }
-
-  // Draw rotating arrow
-  ctx.save();
-  ctx.translate(150, 150);
-  ctx.rotate(arrowAngle * Math.PI / 180);
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(0, -140);
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = "#000";
-  ctx.stroke();
-
-  // Draw arrow head
-  ctx.beginPath();
-  ctx.moveTo(0, -140);
-  ctx.lineTo(-10, -120);
-  ctx.lineTo(10, -120);
-  ctx.closePath();
-  ctx.fillStyle = "#000";
-  ctx.fill();
   ctx.restore();
+
+  // Draw fixed arrow (always pointing up)
+    ctx.save();
+    ctx.translate(150, 150);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, -110); // Shorter arrow
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = "#000";
+    ctx.stroke();
+
+    // Draw arrow head
+    ctx.beginPath();
+    ctx.moveTo(0, -110);
+    ctx.lineTo(-10, -95);
+    ctx.lineTo(10, -95);
+    ctx.closePath();
+    ctx.fillStyle = "#000";
+    ctx.fill();
+    ctx.restore();
 }
 
 let labels = [];
@@ -76,22 +97,25 @@ document.getElementById("spin").addEventListener("click", () => {
   const selectedIdx = Math.floor(Math.random() * numSlices);
   const offset = Math.random() * sliceAngle;
   const targetAngle = selectedIdx * sliceAngle + offset;
-  const spinTo = targetAngle + 720;
+  const spinTo = currentAngle + 720 + targetAngle;
+
+  // Randomize duration between 2000ms and 5000ms
+  const duration = 2000 + Math.random() * 3000;
 
   let start = null;
 
-  function animateArrow(ts) {
+  function animateWheel(ts) {
     if (!start) start = ts;
-    const progress = Math.min((ts - start) / 4000, 1);
+    const progress = Math.min((ts - start) / duration, 1);
     const angle = currentAngle + (spinTo - currentAngle) * progress;
     drawWheel(labels, angle);
     if (progress < 1) {
-      requestAnimationFrame(animateArrow);
+      requestAnimationFrame(animateWheel);
     } else {
       currentAngle = spinTo % 360;
       drawWheel(labels, currentAngle, selectedIdx);
     }
   }
 
-  requestAnimationFrame(animateArrow);
+  requestAnimationFrame(animateWheel);
 });
