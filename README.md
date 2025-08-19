@@ -1,29 +1,46 @@
-# 🎰 **Spin & Pick** Safari Extension - In Progress
+# 🎰 Spin & Pick — Safari Extension
 
-**Spin & Pick** is a Safari extension that helps you discover books, movies, and other content by picking a random title from a list of articles, books, movies, etc., scanned from popular websites. With a single click, you'll get a fun roulette wheel that lets you spin for your next favorite title! 😎
-
----
-
-## 🔥 **How It Works**:
-
-1. **Scan Titles**: Scans web pages like Goodreads, Amazon Books, Prime Video, Netflix, and more to identify titles of books, articles, movies, etc. 📚🎬
-2. **Display Roulette Wheel**: Clicking on the extension icon opens a roulette wheel with the parsed titles.
-3. **Spin and Pick**: The user can spin the wheel to randomly choose a title, or modify the list by adding or removing titles. 🎯
-4. **Enjoy**: Pick your next book or movie with ease and fun! 📖🍿
+**Spin & Pick** helps you decide where to go by turning Google search results into a fun roulette wheel. Search something like **“restaurants near me”**, let the extension pick the top 5 places, and spin to let fate choose your next spot. 😎
 
 ---
 
-## 📋 **How to Use**:
-1. **Install the Extension** in Safari by following the setup steps.
-2. **Click the Extension Icon** in the Safari toolbar to open the roulette wheel.
-3. **Spin the Wheel** to get a random title, or add/remove items as you wish! 🎉
-4. **Discover your next favorite title** and enjoy your reading or movie experience! 📚🎬
+## 🔥 How It Works
+
+1. **Search on Google**: Go to **google.com** and run a local search (e.g., “coffee near me”, “parks in Seattle”, “best sushi Bellevue”).
+2. **Pick Suggestions**: The extension reads Google’s place suggestions/results and **selects up to 5** names.
+3. **Spin the Wheel**: Click the extension icon to open the roulette wheel.
+4. **Let It Decide**: Spin to randomly choose where to go. 🎯
 
 ---
 
-## 🛠️ **Tech Stack**:
+## 🛠 Tech Stack
 
-- **JavaScript**: Used for parsing titles and controlling the roulette wheel.
-- **HTML/CSS**: For creating the user interface of the popup and roulette wheel.
-- **Swift**: Used for wrapping the Safari Web Extension and enabling integration with Safari.
-- **JSON**: For storing the titles and settings.
+* **JavaScript** – Parses Google search results and powers the roulette logic
+* **HTML/CSS** – Popup UI and roulette wheel
+* **Swift** – Safari Web Extension wrapper for Safari integration
+
+---
+
+## 🔐 Privacy
+
+* Works only on **google.com** pages where you activate the extension.
+* No tracking, no analytics, no external calls.
+* Your selections stay **local** to your browser session.
+
+---
+
+## 🗺️ Roadmap
+
+* Support for more sites (Goodreads, Amazon Books, Netflix, etc.).
+* Ability to save and reuse favorite lists.
+* More than 5 picks with grouping options.
+* Quick links to open results in Maps.
+
+---
+
+## 📝 Changelog
+
+* **v0.2** — Google Search only MVP: select up to 5 place names and spin to decide.
+* **v0.1** — Prototype UI for general title parsing.
+  
+---
