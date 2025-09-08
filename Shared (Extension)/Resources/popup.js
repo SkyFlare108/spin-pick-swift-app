@@ -88,25 +88,17 @@ function drawWheel(labels, wheelAngle = 0, selectedIdx = null) {
   }
   ctx.restore();
 
-  // Draw fixed arrow (shorter)
-  ctx.save();
-  ctx.translate(150, 150);
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.lineTo(0, -110);
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = "#000";
-  ctx.stroke();
-
-  // Draw arrow head
-  ctx.beginPath();
-  ctx.moveTo(0, -110);
-  ctx.lineTo(-10, -95);
-  ctx.lineTo(10, -95);
-  ctx.closePath();
-  ctx.fillStyle = "#000";
-  ctx.fill();
-  ctx.restore();
+    // Draw tiny arrow at the top center
+    ctx.save();
+    ctx.translate(150, 18); // Top center of canvas
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(-12, -18);
+    ctx.lineTo(12, -18);
+    ctx.closePath();
+    ctx.fillStyle = "#000";
+    ctx.fill();
+    ctx.restore();
 }
 
 let labels = [];
